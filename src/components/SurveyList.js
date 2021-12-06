@@ -15,7 +15,7 @@ export default function SurveyList(props) {
           question4 = {survey.question4}
           question5 = {survey.question5}
           id = {survey.id}
-          key={survey.key}
+          key={survey.id}
         />
       })}
       
@@ -25,5 +25,5 @@ export default function SurveyList(props) {
 
 SurveyList.propTypes = {
   surveyList: PropTypes.object,
-  onSurveySelection: PropTypes.func
+  onSurveySelection: PropTypes.func,
 }

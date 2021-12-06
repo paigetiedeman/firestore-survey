@@ -5,14 +5,14 @@ export default function ReusableForm(props) {
   return (
     <div>
       <form onSubmit={props.formSubmissionHandler}>
-        <label for="name">Name: </label>
+        <label htmlFor="name">Name: </label>
         <input
         type="text"
         name="name"
         className="form-control"
         required
         />
-        <label for="question1">Question: 1 </label>
+        <label htmlFor="question1">Question: 1 </label>
         <input
         type="text"
         name="question1"
@@ -20,28 +20,28 @@ export default function ReusableForm(props) {
         required
         />
         <br />
-        <label for="question2">Question 2: </label>
+        <label htmlFor="question2">Question 2: </label>
         <input
         type="text"
         name="question2"
         className="form-control"
         />
         <br />
-        <label for="question3">Question 3: </label>
+        <label htmlFor="question3">Question 3: </label>
         <input
         type="text"
         name="question3"
         className="form-control"
         />
         <br />
-        <label for="question4">Question 4: </label>
+        <label htmlFor="question4">Question 4: </label>
         <input
         type="text"
         name="question4"
         className="form-control"
         />
         <br />
-        <label for="question5">Question 5: </label>
+        <label htmlFor="question5">Question 5: </label>
         <input
         type="text"
         name="question5"

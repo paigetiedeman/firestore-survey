@@ -4,7 +4,7 @@ import ReusableForm from './ReusableForm';
 export default function EditSurvey() {
   return (
     <div>
-      < ReusableForm />
+      <ReusableForm />
     </div>
   )
 }

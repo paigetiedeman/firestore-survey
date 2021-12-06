@@ -24,14 +24,15 @@ export const deleteSurvey = id => ({
 });
 
 export const addResponse = (response) => {
-  const {answer1, answer2, answer3, answer4, answer5, surveyId, id} = response;
+  const {title, response1, response2, response3, response4, response5, surveyId, id} = response;
   return {
     type: c.ADD_RESPONSE,
-    answer1: answer1,
-    answer2: answer2,
-    answer3: answer3,
-    answer4: answer4,
-    answer5: answer5,
+    title: title,
+    response1: response1,
+    response2: response2,
+    response3: response3,
+    response4: response4,
+    response5: response5,
     surveyId: surveyId,
     id: id
   }

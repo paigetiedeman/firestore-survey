@@ -4,16 +4,20 @@ import PropTypes from 'prop-types'
 export default function Survey(props) {
   return (
     <div className='card'>
-      <h2>{props.name}</h2>
-      <p>{props.question1}</p>
-      <p>{props.question2}</p>
-      <p>{props.question3}</p>
-      <p>{props.question4}</p>
-      <p>{props.question5}</p>
-      <button onClick={props.whenSurveyClicked}>details</button>
+  
+      <details>
+        <summary className="survey-title">{props.name}</summary>
+          <p>{props.question1}</p>
+          <p>{props.question2}</p>
+          <p>{props.question3}</p>
+          <p>{props.question4}</p>
+          <p>{props.question5}</p>
+      </details>
+      <button onClick={() => props.whenSurveyClicked(props.id)} className="btn btn-dark">details</button>
     </div>
   )
 }
+
 
 Survey.propTypes = {
   name: PropTypes.string,

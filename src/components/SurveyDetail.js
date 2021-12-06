@@ -1,8 +1,9 @@
 import React from 'react';
-import Response from './Response';
+
+import PropTypes from 'prop-types';
 
 export default function SurveyDetail(props) {
-  const { survey } = props;
+  const { survey, onClickRespond } = props;
 
   return (
     <div>
@@ -12,7 +13,12 @@ export default function SurveyDetail(props) {
       <p>{survey.question3}</p>
       <p>{survey.question4}</p>
       <p>{survey.question5}</p>
-      <Response />
+      <button onClick={() => onClickRespond(survey.id)} className="btn btn-dark">respond to survey</button>
     </div>
   )
+}
+
+SurveyDetail.propTypes = {
+  survey: PropTypes.object,
+  onClickRespond: PropTypes.func
 }
