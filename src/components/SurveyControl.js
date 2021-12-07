@@ -15,10 +15,12 @@ class SurveyControl extends React.Component {
     super(props);
     this.state = {
       selectedSurvey: null,
+      selectedSurveyResponse: null,
       editing: false,
       responding: false
     };
   }
+  
 
   handleRespondToSurvey = () => {
     this.setState({responding: true})
@@ -47,9 +49,18 @@ class SurveyControl extends React.Component {
     dispatch(action2);
   }
 
+  //.where()
+  //.reduce()
+  //.find()
+
   handleChangingSurvey = (id) => {
     const foundSurvey = this.props.mainSurveyList[id];
-    this.setState({selectedSurvey: foundSurvey})
+    const arrayResponses = Object.entries(this.props.mainResponseList);
+    const foundResponses = arrayResponses.filter(response => response.surveyId === id);
+    this.setState({
+      selectedSurvey: foundSurvey,
+      selectedSurveyResponses: foundResponses
+    })
   }
 
   handleAddResponse = (response) => {
@@ -84,8 +95,11 @@ class SurveyControl extends React.Component {
     else if(this.state.selectedSurvey != null) {
       currentlyVisibleState = <SurveyDetail 
       survey={this.state.selectedSurvey} 
-      onClickRespond={this.handleRespondToSurvey} />
+      onClickRespond={this.handleRespondToSurvey}
+      responseList={this.props.mainResponseList} />
       buttonText = "Return to List" ;
+
+    
     } 
     else {
       currentlyVisibleState = <SurveyList surveyList={this.props.mainSurveyList}
@@ -103,7 +117,8 @@ class SurveyControl extends React.Component {
 
 SurveyControl.propTypes = {
   mainSurveyList: PropTypes.object,
-  formVisible: PropTypes.bool
+  formVisible: PropTypes.bool,
+  mainResponseList: PropTypes.object
 }
 
 const mapStateToProps = state => {
