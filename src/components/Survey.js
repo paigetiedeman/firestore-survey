@@ -13,7 +13,7 @@ export default function Survey(props) {
           <p>{props.question4}</p>
           <p>{props.question5}</p>
       </details>
-      <button onClick={() => props.whenSurveyClicked(props.id)} className="btn btn-dark">details</button>
+      <button onClick={() => props.whenSurveyClicked(props.id)} className="btn btn-dark">Details</button>
     </div>
   )
 }

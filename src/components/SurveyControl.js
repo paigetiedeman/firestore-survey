@@ -7,7 +7,7 @@ import EditSurvey from './EditSurvey'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as a from './../actions'
-import { withFirestore } from 'react-redux-firebase'
+import { withFirestore,  } from 'react-redux-firebase'
 
 class SurveyControl extends React.Component {
   
@@ -41,35 +41,49 @@ class SurveyControl extends React.Component {
   }
 
 
-  handleAddSurvey = (newSurvey) => {
+  handleAddSurvey = () => {
     const {dispatch} = this.props;
-    const action = a.addSurvey(newSurvey);
-    dispatch(action);
     const action2 = a.toggleForm();
     dispatch(action2);
   }
 
-  //.where()
-  //.reduce()
-  //.find()
+  handleDeletingSurvey =(id) => {
+    this.props.firestore.delete({collection: 'surveys', doc: id})
 
-  handleChangingSurvey = (id) => {
-    const foundSurvey = this.props.mainSurveyList[id];
-    const arrayResponses = Object.entries(this.props.mainResponseList);
-    const foundResponses = arrayResponses.filter(response => response.surveyId === id);
-    this.setState({
-      selectedSurvey: foundSurvey,
-      selectedSurveyResponses: foundResponses
+    this.setState({selectedSurvey: null})
+  }
+
+  handleDeletingResponse = (surveyId) => {
+    this.props.firestore.get({collection: 'responses', doc: surveyId}).then((response) => {
+      this.props.firestore.delete({collection: 'response', doc: response.id})
     })
   }
 
-  handleAddResponse = (response) => {
-    const {dispatch} = this.props;
-    const action = a.addResponse(response);
-    dispatch(action);
-    this.setState({responding: false});
+
+
+  handleChangingSurvey = (id) => {
+    this.props.firestore.get({collection: 'surveys', doc: id}).then((survey) => {
+      const firestoreSurvey = {
+        name: survey.get('name'),
+        question1: survey.get('question1'),
+        question2: survey.get('question2'),
+        question3: survey.get('question3'),
+        question4: survey.get('question4'),
+        question5: survey.get('question5'),
+        id: survey.id
+      }
+      this.setState({selectedSurvey: firestoreSurvey})
+    });
+    // const foundSurvey = this.props.mainSurveyList[id];
+    // this.setState({
+    //   selectedSurvey: foundSurvey,
+    // })
   }
 
+  handleAddResponse = (response) => {
+
+    this.setState({responding: false});
+  }
 
 
   render() {
@@ -96,7 +110,8 @@ class SurveyControl extends React.Component {
       currentlyVisibleState = <SurveyDetail 
       survey={this.state.selectedSurvey} 
       onClickRespond={this.handleRespondToSurvey}
-      responseList={this.props.mainResponseList} />
+      responseList={this.props.mainResponseList}
+      onClickDelete={this.handleDeletingSurvey} />
       buttonText = "Return to List" ;
 
     
@@ -131,6 +146,6 @@ const mapStateToProps = state => {
 
 SurveyControl = connect(mapStateToProps)(SurveyControl);
 
-export default SurveyControl;
+export default withFirestore(SurveyControl);
 
 

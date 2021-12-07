@@ -1,12 +1,21 @@
 import React from 'react'
 import Survey from './Survey'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
+import { useFirestoreConnect, isLoaded } from 'react-redux-firebase'
 
 export default function SurveyList(props) {
-  return (
-    <div>
-      {Object.values(props.surveyList).map((survey) => {
-        return <Survey 
+  useFirestoreConnect([
+    { collection:'surveys'}
+  ])
+
+  const surveyList = useSelector(state => state.firestore.ordered.surveys)
+
+  if (isLoaded(surveyList)){
+    return (
+      <div>
+        {surveyList.map((survey) => {
+          return <Survey 
           whenSurveyClicked={props.onSurveySelection}
           name= {survey.name}
           question1 = {survey.question1}
@@ -16,14 +25,21 @@ export default function SurveyList(props) {
           question5 = {survey.question5}
           id = {survey.id}
           key={survey.id}
-        />
-      })}
-      
-    </div>
-  )
-}
+          />
+        })}
+        
+      </div>
+    )
+  }
+  else{
+    return(
+      <React.Fragment>
+        <h4>Loading...</h4>
+      </React.Fragment>
+    )
+  }
+  }
 
-SurveyList.propTypes = {
-  surveyList: PropTypes.object,
-  onSurveySelection: PropTypes.func,
-}
+  SurveyList.propTypes = {
+    onSurveySelection: PropTypes.func,
+  }
