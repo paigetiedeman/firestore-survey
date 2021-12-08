@@ -1,9 +1,45 @@
-import React from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react'
 
-export default function Header() {
-  return (
-    <div>
-      <h1>Survey Site</h1>
-    </div>
-  )
-}
+
+
+
+export default class Header extends Component {
+  
+  state = { activeItem: 'home' }
+  
+  handleItemClick = (e, { name }) => {
+    this.setState({ activeItem: name })
+  }
+  
+  render(){
+   
+    const { activeItem } = this.state
+    
+
+      return (
+        <Menu secondary>
+        <Menu.Item 
+          name='Survey'
+          className='title'
+          />
+        <Menu.Item
+          as={Link} to="/"
+          name='home'
+          active={activeItem === 'home'}
+          onClick={this.handleItemClick}
+          />
+        <Menu.Item
+          as={Link} to="/signIn"
+          name='signIn'
+          active={activeItem === 'signIn'}
+          onClick={this.handleItemClick}
+          />
+      </Menu>
+      )
+    
+
+    }
+  }
+  

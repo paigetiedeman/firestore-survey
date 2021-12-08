@@ -1,15 +1,24 @@
 import React from 'react';
 import Header from './Header'
 import SurveyControl from './SurveyControl';
-
-//routing happens here
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import SignIn from './SignIn'
 
 function App() {
   return (
-    <div className="App container">
-      <Header />
-      <SurveyControl />
+    <Router>
+        <Header />
+      <div className="App container">
+        <Switch>
+          <Route path="/signIn">
+            <SignIn />
+          </Route>
+          <Route path="/">
+        <SurveyControl />
+        </Route>
+      </Switch>
     </div>
+    </Router>
   );
 }
 

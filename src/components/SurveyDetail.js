@@ -3,9 +3,10 @@ import Response from './Response';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect, isLoaded } from 'react-redux-firebase'
+import 'firebase/auth';
 
 export default function SurveyDetail(props) {
-  const { survey, onClickRespond, onClickDelete } = props;
+  const { survey, onClickRespond, onClickDelete, auth } = props;
 
   useFirestoreConnect([{collection: 'responses'}])
 
@@ -18,7 +19,18 @@ export default function SurveyDetail(props) {
   //this object is an array containing objects
 
   let responsesVisible = null;
+  let buttonsVisible= null;
   
+  if (isLoaded(auth) && (auth.currentUser !== null)) {
+    buttonsVisible =  
+    <div>
+      <button onClick={() => onClickRespond(survey.id)} className="btn btn-dark">Respond to Survey</button>
+      <button onClick={() => onClickDelete(survey.id)} className="btn btn-dark">Delete Survey</button>
+    </div>
+  } else {
+    buttonsVisible = <h2>Sign in to respond to survey</h2>
+  }
+
   if (isLoaded(responses)) {
     
   const responseList = sortByID(responses, survey.id);
@@ -50,8 +62,8 @@ export default function SurveyDetail(props) {
       <p>{survey.question3}</p>
       <p>{survey.question4}</p>
       <p>{survey.question5}</p>
-      <button onClick={() => onClickRespond(survey.id)} className="btn btn-dark">Respond to Survey</button>
-      <button onClick={() => onClickDelete(survey.id)} className="btn btn-dark">Delete Survey</button>
+      {buttonsVisible}
+      <br />
       {responsesVisible} 
     </div>
   )}
