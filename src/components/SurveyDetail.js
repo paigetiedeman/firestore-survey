@@ -32,7 +32,9 @@ export default function SurveyDetail(props) {
     response4={response.response4}
     response5={response.response5}
     id={response.id} 
-    key={response.id}/>
+    key={response.id}
+    onResponseDelete={props.onResponseDelete}/>
+    
   })}
   else {
     responsesVisible = <React.Fragment>
@@ -59,5 +61,6 @@ SurveyDetail.propTypes = {
   survey: PropTypes.object,
   onClickRespond: PropTypes.func,
   responseList: PropTypes.object,
-  onClickDelete: PropTypes.func
+  onClickDelete: PropTypes.func,
+  onResponseDelete: PropTypes.func
 }

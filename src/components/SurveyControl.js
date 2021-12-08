@@ -7,7 +7,9 @@ import EditSurvey from './EditSurvey'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as a from './../actions'
-import { withFirestore,  } from 'react-redux-firebase'
+import { withFirestore } from 'react-redux-firebase'
+
+
 
 class SurveyControl extends React.Component {
   
@@ -48,16 +50,66 @@ class SurveyControl extends React.Component {
   }
 
   handleDeletingSurvey =(id) => {
-    this.props.firestore.delete({collection: 'surveys', doc: id})
-
-    this.setState({selectedSurvey: null})
+    // this.props.firestore.delete({collection: 'surveys', doc: id})
+    this.handleDeletingAllResponses(id);
+    this.setState({selectedSurvey: null});
   }
 
-  handleDeletingResponse = (surveyId) => {
-    this.props.firestore.get({collection: 'responses', doc: surveyId}).then((response) => {
-      this.props.firestore.delete({collection: 'response', doc: response.id})
+  handleDeletingSingleResponse = (id) => {
+
+    this.props.firestore.delete({collection: 'responses', doc: id})
+  }
+
+  // handleDeletingResponse = (surveyId) => {
+  // this.props.firestore.get({collection: 'responses', doc: surveyId}).then((returnedResponses) => { returnedResponses.map( (response) => {console.log(response.id)
+  //   this.handleDeletingSingleResponse(response.id);
+    
+  //   this.props.firestore.delete({collection: 'responses', doc: response.id})})
+  //     // const firestoreResponse = {
+  //     //   title: response.get('title'),
+  //     //   response1: response.get('response1'),
+  //     //   response2: response.get('response2'),
+  //     //   response3: response.get('response3'),
+  //     //   response4: response.get('response4'),
+  //     //   response5: response.get('response5'),
+  //     //   id: response.id,
+  //     //   surveyId: response.get('surveyId')
+  //     // }
+  //     // console.log(response.id)
+  //     // this.handleDeletingSingleResponse(response.id);
+      
+  //     // this.props.firestore.delete({collection: 'responses', doc: response.id})
+  //   })
+  // }
+
+handleDeletingAllResponses = (surveyId) => {
+  
+  this.props.firestore.collection('responses')
+  .get()
+  .then(querySnapshot => {
+    const documents = querySnapshot.docs.map(doc => doc.data())
+    const filteredResponses = documents.filter(doc => doc.surveyId === surveyId)
+    console.log(filteredResponses);
+    filteredResponses.forEach(response => {
+      console.log(response)
+      // this.handleDeletingSingleResponse(response);
     })
-  }
+  })
+}
+//trouble getting all responses(really trouble getting more than 1)
+// get their ids
+// managed to put all the response ids into an array, and then delete single response on each id
+// map and use delete single response should work
+
+
+  // import { collection, query, where, getDocs } from "firebase/firestore";
+  // const q = query(collection(db, "responses"), where("surveyId", "===", id));
+  
+  // const querySnapshot = await getDocs(q);
+  // querySnapshot.forEach((doc) => {
+  //   // doc.data() is never undefined for query doc snapshots
+  //   console.log(doc.id, " => ", doc.data());
+  // });
 
 
 
@@ -111,7 +163,8 @@ class SurveyControl extends React.Component {
       survey={this.state.selectedSurvey} 
       onClickRespond={this.handleRespondToSurvey}
       responseList={this.props.mainResponseList}
-      onClickDelete={this.handleDeletingSurvey} />
+      onClickDelete={this.handleDeletingSurvey}
+      onResponseDelete={this.handleDeletingSingleResponse} />
       buttonText = "Return to List" ;
 
     
