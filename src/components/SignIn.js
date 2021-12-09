@@ -1,11 +1,26 @@
 import React from 'react'
 import firebase from 'firebase/app';
-import { isLoaded } from 'react-redux-firebase'
+import { withFirestore, isLoaded } from 'react-redux-firebase'
+import { connect } from 'react-redux'
 
-export default function SignIn() {
+class SignIn extends React.Component {
   
-  
-  function doSignUp(e){
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false,
+    };
+  }
+
+  handleLogIn = () =>{
+    this.setState({ loggedIn: true})
+
+  }
+  handleLogOut = () =>{
+    this.setState({ loggedIn: false})
+  }
+
+  doSignUp = (e)=>{
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
@@ -14,8 +29,11 @@ export default function SignIn() {
     }).catch(function(error){
       console.log(error.message);
     })
+    
   }
-  function doSignIn(event) {
+  
+  doSignIn=(event) =>{
+
     event.preventDefault();
     const email = event.target.signInEmail.value;
     const password = event.target.signInPassword.value;
@@ -24,53 +42,86 @@ export default function SignIn() {
     }).catch(function(error) {
       console.log(error.message);
     });
+    this.setState({loggedIn: true})
+    
   }
-  function doSignOut() {
+
+  doSignOut=(e)=> {
+    e.preventDefault()
     firebase.auth().signOut().then(function() {
       console.log("Successfully signed out!");
     }).catch(function(error) {
       console.log(error.message);
     });
+    this.setState({loggedIn: false})
+    
   }
   
-  
-  return (
+  render() {
+    const auth = this.props.firebase.auth();
+    let visibleState = null;
 
-    <React.Fragment>
-      <h1>Sign Up</h1>
-      <form onSubmit={doSignUp}>
-      <input
-        type='text'
-        name='email'
-        placeholder='email'
-        className='form-control'/>
-        <br />
-      <input
-        type='password'
-        name='password'
-        placeholder='Password'
-        className='form-control'/>
-        <br />
-      <button type='submit' className="btn btn-dark">Sign up</button>
-        </form>
-      <h1>Sign In</h1>
-      <form onSubmit={doSignIn}>
+    if (isLoaded(auth) && auth.currentUser === null){
+      visibleState = 
+      <React.Fragment>
+        <h1>Sign Up</h1>
+        <form onSubmit={this.doSignUp}>
         <input
           type='text'
-          name='signInEmail'
+          name='email'
           placeholder='email'
           className='form-control'/>
           <br />
         <input
           type='password'
-          name='signInPassword'
+          name='password'
           placeholder='Password'
           className='form-control'/>
           <br />
-        <button type='submit' className="btn btn-dark">Sign In</button>
-        </form>      <button onClick={doSignOut} className="btn btn-dark">Sign out</button>
-    <br />
-  </React.Fragment>
-  )
+        <button type='submit' className="btn btn-dark">Sign up</button>
+          </form>
+        <h1>Sign In</h1>
+        <form onSubmit={this.doSignIn}>
+          <input
+            type='text'
+            name='signInEmail'
+            placeholder='email'
+            className='form-control'/>
+            <br />
+          <input
+            type='password'
+            name='signInPassword'
+            placeholder='Password'
+            className='form-control'/>
+            <br />
+          <button type='submit' className="btn btn-dark">Sign In</button>
+          </form> 
+      </React.Fragment>
+    } else if (isLoaded(auth) && auth.currentUser != null){
+      visibleState = 
+      <React.Fragment>
+        <button onClick={this.doSignOut} className="btn btn-dark">Sign out</button>
+      </React.Fragment>
+    } else {
+      visibleState = <p>Loading...</p>
+    }
+
+  return(
+    <React.Fragment>
+      {visibleState}
+    </React.Fragment>
+    )
+  } 
 }
 
+const mapStateToProps = (state) => {
+  return {
+    mainSurveyList: state.mainSurveyList,
+    formVisible: state.formVisible,
+    mainResponseList: state.mainResponseList
+  }
+}
+
+SignIn = connect(mapStateToProps)(SignIn);
+
+export default withFirestore(SignIn);

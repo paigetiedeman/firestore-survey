@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react'
 
 
-
-
 export default class Header extends Component {
-  
+
   state = { activeItem: 'home' }
   
   handleItemClick = (e, { name }) => {
@@ -14,7 +12,7 @@ export default class Header extends Component {
   }
   
   render(){
-   
+  
     const { activeItem } = this.state
     
 
@@ -38,8 +36,5 @@ export default class Header extends Component {
           />
       </Menu>
       )
-    
-
     }
   }
-  
