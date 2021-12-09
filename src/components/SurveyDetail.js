@@ -45,7 +45,8 @@ export default function SurveyDetail(props) {
     response5={response.response5}
     id={response.id} 
     key={response.id}
-    onResponseDelete={props.onResponseDelete}/>
+    onResponseDelete={props.onResponseDelete}
+    auth={auth}/>
     
   })}
   else {

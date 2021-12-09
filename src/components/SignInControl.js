@@ -25,7 +25,7 @@ class SignInControl extends React.Component {
     }).catch(function(error){
       console.log(error.message);
     })
-    // this.backToSignIn()
+    this.backToSignIn()
   }
   
   doSignIn=(event) =>{
@@ -66,6 +66,7 @@ class SignInControl extends React.Component {
   render() {
     const auth = this.props.firebase.auth();
     let visibleState = null;
+    
 
     if (isLoaded(auth) && auth.currentUser != null){
       visibleState = <SignOut signOut={this.doSignOut}/>
@@ -79,20 +80,22 @@ class SignInControl extends React.Component {
         visibleState = <SignIn signIn={this.doSignIn}
           onSignUp={this.handleSignUp} />
       }
-    } else if(isLoaded(auth) && this.state.loggedIn && auth.currentUser != null){
+    } else if(this.state.loggedIn && auth.currentUser != null){
       visibleState = <SignOut signOut={this.doSignOut}/>
     }else{
-      visibleState = 
-      <div>
+      return(
+
+        <div>
         <p>That email is not registered</p>
-        {/* <button OnClick={this.resetSignIn()}>Try Again</button> */}
+        <button onClick={() => this.resetSignIn()} className='btn btn-dark'>Try Again</button>
       </div>
+        )
     }
 
     return (
       <div>
-        <h1>this is SignIn Control</h1>
         {visibleState}
+        
       </div>
     )
   }
