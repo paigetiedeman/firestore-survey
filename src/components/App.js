@@ -1,10 +1,10 @@
 
-
 import React from 'react';
 import Header from './Header'
 import SurveyControl from './SurveyControl';
+import SignInControl from './SignInControl';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import SignIn from './SignIn'
+
 
 function App() {
   return (
@@ -12,8 +12,8 @@ function App() {
         <Header />
       <div className="App container">
         <Switch>
-          <Route path="/signIn">
-            <SignIn />
+          <Route path="/signInControl">
+            <SignInControl />
           </Route>
           <Route path="/">
         <SurveyControl />

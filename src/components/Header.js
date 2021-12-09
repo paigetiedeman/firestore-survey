@@ -29,9 +29,9 @@ export default class Header extends Component {
           onClick={this.handleItemClick}
           />
         <Menu.Item
-          as={Link} to="/signIn"
-          name='signIn'
-          active={activeItem === 'signIn'}
+          as={Link} to="/signInControl"
+          name='signInControl'
+          active={activeItem === 'signInControl'}
           onClick={this.handleItemClick}
           />
       </Menu>
