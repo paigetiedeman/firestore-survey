@@ -1,26 +1,27 @@
 {
   "files": {
     "main.css": "/firestore-survey/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/firestore-survey/static/js/main.6ee87b71.chunk.js",
-    "main.js.map": "/firestore-survey/static/js/main.6ee87b71.chunk.js.map",
-    "runtime-main.js": "/firestore-survey/static/js/runtime-main.0300c257.js",
-    "runtime-main.js.map": "/firestore-survey/static/js/runtime-main.0300c257.js.map",
-    "static/css/2.68a81a89.chunk.css": "/firestore-survey/static/css/2.68a81a89.chunk.css",
-    "static/js/2.4193a53f.chunk.js": "/firestore-survey/static/js/2.4193a53f.chunk.js",
-    "static/js/2.4193a53f.chunk.js.map": "/firestore-survey/static/js/2.4193a53f.chunk.js.map",
-    "static/js/3.e53244b7.chunk.js": "/firestore-survey/static/js/3.e53244b7.chunk.js",
-    "static/js/3.e53244b7.chunk.js.map": "/firestore-survey/static/js/3.e53244b7.chunk.js.map",
+    "main.js": "/firestore-survey/static/js/main.c512195f.chunk.js",
+    "main.js.map": "/firestore-survey/static/js/main.c512195f.chunk.js.map",
+    "runtime-main.js": "/firestore-survey/static/js/runtime-main.e7b0e724.js",
+    "runtime-main.js.map": "/firestore-survey/static/js/runtime-main.e7b0e724.js.map",
+    "static/css/2.7cbef4ae.chunk.css": "/firestore-survey/static/css/2.7cbef4ae.chunk.css",
+    "static/js/2.66f644a6.chunk.js": "/firestore-survey/static/js/2.66f644a6.chunk.js",
+    "static/js/2.66f644a6.chunk.js.map": "/firestore-survey/static/js/2.66f644a6.chunk.js.map",
+    "static/js/3.100d4d3d.chunk.js": "/firestore-survey/static/js/3.100d4d3d.chunk.js",
+    "static/js/3.100d4d3d.chunk.js.map": "/firestore-survey/static/js/3.100d4d3d.chunk.js.map",
     "index.html": "/firestore-survey/index.html",
-    "precache-manifest.d4c7646ad46f9928fb7a9d9171052eaa.js": "/firestore-survey/precache-manifest.d4c7646ad46f9928fb7a9d9171052eaa.js",
+    "precache-manifest.2d2f801538d5e695d6206b0e59fa7d8d.js": "/firestore-survey/precache-manifest.2d2f801538d5e695d6206b0e59fa7d8d.js",
     "service-worker.js": "/firestore-survey/service-worker.js",
-    "static/css/2.68a81a89.chunk.css.map": "/firestore-survey/static/css/2.68a81a89.chunk.css.map",
-    "static/css/main.5ecd60fb.chunk.css.map": "/firestore-survey/static/css/main.5ecd60fb.chunk.css.map"
+    "static/css/2.7cbef4ae.chunk.css.map": "/firestore-survey/static/css/2.7cbef4ae.chunk.css.map",
+    "static/css/main.5ecd60fb.chunk.css.map": "/firestore-survey/static/css/main.5ecd60fb.chunk.css.map",
+    "static/media/semantic.min.css": "/firestore-survey/static/media/outline-icons.ef60a4f6.woff"
   },
   "entrypoints": [
-    "static/js/runtime-main.0300c257.js",
-    "static/css/2.68a81a89.chunk.css",
-    "static/js/2.4193a53f.chunk.js",
+    "static/js/runtime-main.e7b0e724.js",
+    "static/css/2.7cbef4ae.chunk.css",
+    "static/js/2.66f644a6.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.6ee87b71.chunk.js"
+    "static/js/main.c512195f.chunk.js"
   ]
 }
